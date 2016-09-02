@@ -1,0 +1,73 @@
+<mvc:View controllerName="CRUD_test.controller.Detail" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic"
+  xmlns:footerbar="sap.ushell.ui.footerbar">
+  <semantic:DetailPage id="page" navButtonPress="onNavBack" showNavButton="{device>/system/phone}" title="{i18n>detailTitle}"
+    busy="{detailView>/busy}" busyIndicatorDelay="{detailView>/delay}">
+    <semantic:content>
+      <ObjectHeader id="objectHeader" 
+     			    title="{UserId} - {UserName}">
+     			    <attributes>
+     			    	<ObjectAttribute text="Active: {Active}" />		    
+     			    </attributes>
+      </ObjectHeader>
+      <IconTabBar id="iconTabBar" class="sapUiResponsiveContentPadding">
+        <items>
+
+          <IconTabFilter id="iconTabBarFilter1" icon="sap-icon://action-settings" tooltip="Settings">
+            <ObjectHeader id="objectHeaderAsset" title="User Group"></ObjectHeader>
+            <Table id="lineItemsList" 
+            	   width="auto" 
+            	   items="{UserGroup}" 
+            	   updateFinished="onListUpdateFinished" 
+            	   mode="SingleSelectMaster" 
+            	   selectionChange="onUserGroupSelect" 
+              	   noDataText="{i18n>detailLineItemTableNoDataText}" 
+              	   busyIndicatorDelay="{detailView>/lineItemTableDelay}" 
+              	   class="sapUiResponsiveMargin">
+              <headerToolbar>
+                <Toolbar id="lineItemsToolbar">
+                  <Button id="addUserGroupItemButton" text="" icon="sap-icon://add" press="onUserGroupAdd" class="sapUiLargeEnd"/>
+                  <Button id="deleteUserGroupItemButton" text="" icon="sap-icon://delete" press="onUserGroupDelete" class="sapUiLargeEnd"/>
+                </Toolbar>
+              </headerToolbar>
+              <columns>
+                <Column>
+                  <Text text="{i18n>detailLineItemTableIDColumn}"/>
+                </Column>
+                <Column>
+                  <Text text="UserGroupName"/>
+                </Column>
+                <Column>
+                  <Text text="UserGroupActive"/>
+                </Column>
+                <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Right">
+                  <Text text="{i18n>detailLineItemTableUnitNumberColumn}"/>
+                </Column>
+              </columns>
+              <items>
+                <ColumnListItem type="Active">
+                  <cells>
+                    <ObjectIdentifier title="{UserGroupId}"/>
+                    <Text text="{path:'UserGroupName'}"/>
+                    <Text text="{path:'UserGroupActive'}"/>
+                  </cells>
+                </ColumnListItem>
+              </items>
+            </Table>
+
+          </IconTabFilter>
+
+        </items>
+        
+      </IconTabBar>
+
+    </semantic:content>
+
+    <semantic:editAction>
+      <semantic:EditAction id="edit" press="onEdit"/>
+    </semantic:editAction>
+    <semantic:customFooterContent>
+      <Button enabled="true" id="deleteButton" press="onDelete" text="Delete"/>
+    </semantic:customFooterContent>
+
+  </semantic:DetailPage>
+</mvc:View>

@@ -1,0 +1,48 @@
+<mvc:View controllerName="CRUD_test.controller.CreateEntity" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form"
+	xmlns:footerbar="sap.ushell.ui.footerbar" xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic"
+	xmlns:smart="sap.ui.comp.smartfield" xmlns="sap.m">
+	<semantic:DetailPage id="page" navButtonPress="onNavBack" title="{viewModel>/viewTitle}" busy="{viewModel>/busy}">
+		<semantic:content>
+		
+			<!-- Input
+		        type="Text"
+		        enableSuggestions="true"
+		        showSuggestion="true"
+		        suggest=""
+		        liveChange ="onSuggest"
+		        suggestionItems="{/UserProfileSet}">
+		        
+		        <suggestionItems>
+		            <SuggestionItem text="{UserId} - {UserName}" description="{UserName}" icon="sap-icon://action-settings" key="{UserId}"/>
+		        </suggestionItems>
+    		</Input-->
+		
+			<f:SimpleForm class="editableForm" columnsL="1" columnsM="1" editable="true" emptySpanL="4" emptySpanM="4" id="newEntitySimpleForm"
+				labelSpanL="3" labelSpanM="3" layout="ResponsiveGridLayout" maxContainerCols="2" minWidth="1024"
+				title="{= ${viewModel>/mode} === 'edit'? 'Edit User': 'New User'}">
+				<f:content>
+					<Label text="User id" required="true"/>
+					<Input name="UserId" 
+						   id="UserId_id" 
+						   valueLiveUpdate="true" 
+						   liveChange="_validateSaveEnablement"
+						   enabled="false" 
+						   visible="true"
+						   value="{ path: 'UserId', type: 'sap.ui.model.odata.type.Int' , constraints:{ maxLength:6, nullable:false } }"
+						   showValueHelp="false"  
+                           valueHelpRequest="onValueHelp" />
+                    <Button id="userSearchId" text="" icon="sap-icon://search" width="2.5em" press="onUserSearch" class="sapUiSizeCompact"/>
+				    <Label text="Active" required="false"/>
+                    <Select id="Active_id" selectedKey="{Active}" items="{/ActiveFlagSet}" enabled="true" visible="true"><core:Item key="{ActiveFlagId}" text="{ActiveFlagDescription}"/></Select>
+												
+				</f:content>
+			</f:SimpleForm>
+		</semantic:content>
+		<semantic:saveAction>
+			<semantic:SaveAction id="save" enabled="{viewModel>/enableCreate}" press="onSave"/>
+		</semantic:saveAction>
+		<semantic:cancelAction>
+			<semantic:CancelAction id="cancel" press="onCancel"></semantic:CancelAction>
+		</semantic:cancelAction>
+	</semantic:DetailPage>
+</mvc:View>
